@@ -6,7 +6,7 @@ import { Config } from './config';
 import { generateOutput } from './generate-output';
 import { getHtml } from './get-html';
 import { getOutputFilePath } from './get-output-file-path';
-import { getMarginObject } from './helpers';
+import { getMarginObject, processIncludes } from './helpers';
 import { readFile } from './read-file';
 
 type CliArgs = typeof import('../cli').cliFlags;
@@ -28,7 +28,10 @@ export const convertMdToPdf = async (
 	const mdFileContent =
 		'content' in input
 			? input.content
-			: await readFile(input.path, args['--md-file-encoding'] ?? config.md_file_encoding);
+			: await processIncludes(
+					await readFile(input.path, args['--md-file-encoding'] ?? config.md_file_encoding),
+					args['--md-file-encoding'] ?? config.md_file_encoding,
+			  );
 
 	const { content: md, data: frontMatterConfig } = grayMatter(
 		mdFileContent,

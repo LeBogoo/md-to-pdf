@@ -170,6 +170,14 @@ Refer to the Puppeteer docs for more info about [header](https://pptr.dev/api/pu
 
 This can be achieved with [MathJax](https://www.mathjax.org/). A simple example can be found in [`/src/test/mathjax`](/src/test/mathjax).
 
+#### Include Files
+
+You can include other markdown files with the `include` comment. The path is relative to the file that includes it. The included file can also include other files.
+
+```markdown
+<!-- include: ./path/to/file.md -->
+```
+
 #### Default and Advanced Options
 
 For default and advanced options see the following links. The default highlight.js styling for code blocks is `github`. The default PDF options are the A4 format and some margin (see `lib/config.ts` for the full default config).
